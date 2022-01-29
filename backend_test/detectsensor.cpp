@@ -27,7 +27,7 @@ void DetectSensor::detectSensors()
        //use table 8  of ADS1115 datasheet for reference
        char config[3] = {0};
        config[0] = 0b00000001;
-       config[1] = 0b01010010;
+       config[1] = 0b01010010; //MUX starts at 101 to follow handheld's analog ports
        config[2] = 0b10000011;
        char reg[1]={0x00};
        uint16_t raw_adc;
@@ -46,7 +46,6 @@ void DetectSensor::detectSensors()
             //skip first read of conversion register
            if(i!=0){
                sleep(1);
-
                analogPorts[i-1]=raw_adc;
                qDebug()<<"Port "<<i<<":";
                qDebug()<<analogPorts[i-1];
